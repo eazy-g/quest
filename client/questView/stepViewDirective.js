@@ -27,7 +27,9 @@ angular.module('cityQuest.stepViewDirective', [])
         // Hiding extra controls
         addressControl: false,
         panControl: false,
-        zoomControl: false
+        zoomControl: false,
+        // mitch added
+        scrollwheel: false
       }
     );
   };

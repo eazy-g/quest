@@ -84,17 +84,17 @@
 
           </div>
           <div class="col-md-6 maps">
-           <ui-gmap-google-map center="map.center" zoom="map.zoom" events="map.events">
-                <ui-gmap-marker 
-                    ng-repeat="marker in markers" 
-                    coords="marker.coords" 
+           <ui-gmap-google-map center="map.center" zoom="map.zoom" events="map.events" options="map.options">
+                <ui-gmap-marker
+                    ng-repeat="marker in markers"
+                    coords="marker.coords"
                     idKey="marker.id"
                     options="marker.options"
                     >
                 </ui-gmap-marker>
           </ui-gmap-google-map>
           </div>
-          
+
           <div class="clean"></div>
 
           </div>
