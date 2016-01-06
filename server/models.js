@@ -25,16 +25,21 @@ var questSchema = new Schema({
 });
 
 var userSchema = new Schema({
-	username: {
-		type: String,
-		required: true,
-		unique: true
-	},
-
-	password: {
-		type: String,
-		required: true
-	}
+  username: {
+    type: String,
+    required: true,
+    unique: true
+  },
+  password: {
+    type: String,
+    required: true
+  },
+  first_name: String,
+  last_name: String,
+  age: Number,
+  home_city: String,
+  created_quests_ids: [Number],
+  quests_to_do_ids: [Number]
 
 });
 

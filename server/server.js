@@ -15,6 +15,7 @@ var User = models.User;
 var signup = userModels.signup;
 var signin = userModels.signin;
 var authUser = userModels.checkAuth;
+var getProfile = userModels.getProfile;
 
 
 
@@ -52,7 +53,6 @@ app.post('/api/users/signup', function(req, res){
 
 app.post('/api/users/signin', function(req, res){
 	signin(req, res, res.send);
-
 });
 
 
@@ -68,7 +68,11 @@ app.post('/api/geocode*', function(req, res){
     if(err) throw err;
     res.send(data.results[0].geometry.location);
   });
-})
+});
+
+app.post('/api/getProfile', function (req, res){
+	getProfile(req, res, res.send);
+});
 
 
 
