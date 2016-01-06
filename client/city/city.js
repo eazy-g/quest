@@ -4,15 +4,15 @@ angular.module('cityQuest.city', [])
   $scope.city = "";
 
   $scope.citySelect = function(){
-    QuestStorage.saveCity($scope.city.toLowerCase()); 
+    QuestStorage.saveCity($scope.city.toLowerCase());
     $location.path('/questList');
   };
 
-  var sessionCheck = function(){
-    if( ! Auth.isAuth()) {
-      $location.path('/signin');
-    }
-  }
+  // var sessionCheck = function(){
+  //   if( ! Auth.isAuth()) {
+  //     $location.path('/signin');
+  //   }
+  // }
 
-  sessionCheck();
+  // sessionCheck();
 });
