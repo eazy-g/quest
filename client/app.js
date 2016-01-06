@@ -4,12 +4,14 @@ var cityQuestApp = angular.module('cityQuestApp',[
                                  'cityQuest.inputConversionService',
                                  'cityQuest.authenticationService',
                                  'cityQuest.questStorageService',
+                                 'cityQuest.profileService',
                                  'cityQuest.city',
                                  'cityQuest.questList',
                                  'cityQuest.stepViewDirective',
                                  'cityQuest.questView',
                                  'cityQuest.createQuest',
                                  'cityQuest.auth',
+                                 'cityQuest.profile',
                                  'ngTagsInput',
                                  'uiGmapgoogle-maps',
                                  ]);
@@ -49,6 +51,10 @@ function routeDefinition($routeProvider){
   .when('/signup', {
       templateUrl: 'client/auth/signup.html',
       controller: 'authController'
+    })
+  .when('/profile', {
+      templateUrl: 'client/profile/profile.html',
+      controller: 'profileCtrl'
     })
   .otherwise({
     redirectTo: '/'
