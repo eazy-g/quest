@@ -93,6 +93,12 @@ angular.module('cityQuest.questView', [])
     Auth.signout();
   };
 
+  $scope.rate = function() {
+
+  }
+  //scope.rate in html{{}} - make sure value is being updated
+  // give scopequestid and rating for post request
+
   var sessionCheck = function(){
     if(!Auth.isAuth()){
       $location.path('/signin')
