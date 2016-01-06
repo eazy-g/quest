@@ -38,8 +38,8 @@ var userSchema = new Schema({
   last_name: String,
   age: Number,
   home_city: String,
-  created_quests: [String],
-  quests_to_do: [String]
+  created_quests_ids: [Number],
+  quests_to_do_ids: [Number]
 
 });
 
