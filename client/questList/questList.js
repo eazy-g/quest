@@ -32,6 +32,6 @@ angular.module('cityQuest.questList', [])
     }
   };
 
-  sessionCheck();
+  // sessionCheck();
   getAllQuests();
 });

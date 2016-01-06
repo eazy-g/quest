@@ -38,15 +38,17 @@ angular.module('cityQuest.questStorageService', [])
       '/api/quests/?_id=' + questId
       ).then(function(res){
         return res.data[0];
-    }) 
+    })
     .catch(function(err){
         console.log("getSingleQuest did not return any quests: ", err);
     });
   };
 
   questStorage.getAllQuests = function(){
+    //the or 'austin' is a temporary placeholder to get quests for front page
+    var searchCity = $window.localStorage.getItem('city') || 'austin';
     return $http.get(
-       '/api/quests/?city=' + $window.localStorage.getItem('city')
+       '/api/quests/?city=' + searchCity
         )
         .then(function(res){
           var fetchedQuests = res.data;
