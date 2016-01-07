@@ -80,6 +80,7 @@ module.exports = {
     findUser({username: username})
     .then(function (user) {
       res.json({profile: user});
+      console.log('this is user', user);
     })
     .fail(function (error) {
       next(error);
