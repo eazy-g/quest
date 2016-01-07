@@ -116,27 +116,27 @@ module.exports = {
       }
     )
     .then(function(data){
-      // User.find({"created_quests_ids": quest_id})
-      // .then(function(user){
-      //   console.log('user', user)
+      User.find({"created_quests_ids": questId})
+      .then(function(user){
+        console.log('user', user)
         client.sendMessage({
             to:'+18659197597', // Any number Twilio can deliver to
             from: '+18652975047', // A number you bought from Twilio and can use for outbound communication
             body: 'you completed the quest.' // body of the SMS message
         }, function(err, responseData) { if(err){console.log(err);}}
         );
-      // });
+      });
       res.status(201).send();
     })
   },
 
-  getPhoneNumberFromQuest: function(req, res, next){
-    var questId = req.body.questId;
-    User.find({"created_quests_ids": questId})
-    .then(function(user){
-      console.log('user', user);
-    })
-  },
+  // getPhoneNumberFromQuest: function(req, res, next){
+  //   var questId = req.body.questId;
+  //   User.find({"created_quests_ids": questId})
+  //   .then(function(user){
+  //     console.log('user', user);
+  //   })
+  // },
 
   checkAuth: function (req, res, next) {
 
