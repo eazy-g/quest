@@ -41,6 +41,4 @@ angular.module('cityQuest.city', [])
 
   // sessionCheck();
   getTwoRandomQuests();
-  $window.localStorage.removeItem('city');
-  $window.localStorage.removeItem('coords');
 });

@@ -1,6 +1,6 @@
 angular.module('cityQuest.authenticationService', [])
 
-.factory('Auth', function ($http, $location, $window) {
+.factory('Auth', function ($http, $location, $window, QuestStorage) {
   var auth = {};
   auth.signin = function (user) {
     return $http({
@@ -9,8 +9,10 @@ angular.module('cityQuest.authenticationService', [])
       data: user
     })
     .then(function (resp) {
-      console.log('resp: ', resp);
       $window.localStorage.setItem('sessiontoken', resp.data.token);
+      // default to home city for searches/creation
+      $window.localStorage.setItem('city', resp.data.homeCity)
+      QuestStorage.saveCity(resp.data.homeCity)
       $location.path('/');
     });
   };
@@ -34,7 +36,9 @@ angular.module('cityQuest.authenticationService', [])
 
   auth.signout = function () {
     $window.localStorage.removeItem('sessiontoken');
-    $location.path('/signin');
+    $window.localStorage.removeItem('city');
+    $window.localStorage.removeItem('coords');
+    $location.path('/');
   };
 
   return auth;
