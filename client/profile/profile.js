@@ -2,11 +2,10 @@ angular.module('cityQuest.profile', [])
 
 .controller('profileCtrl', function ($q, $scope, $location, $window, Profile, Auth, QuestStorage, InputConversion){
 
-	// $scope.user = {}
-
 	$scope.token = $window.localStorage.getItem('sessiontoken');
   $scope.showNoQuestsFoundMsg = false;
   $scope.showNoQuestsToDoFoundMsg = false;
+  $scope.showNoQuestsCompletedFoundMsg = false;
 
 	var getProfile = function(){
 		var deferred = $q.defer();
@@ -22,19 +21,31 @@ angular.module('cityQuest.profile', [])
 	};
 
 	var getAllQuestsById = function(questIds, type){
-    console.log('type', type);
   	QuestStorage.getAllQuestsById(questIds)
   	.then(function(data){
-      data.forEach(function(quest){
-        quest.time = InputConversion.minutesToHours(quest.time);
-      });
+      if(data){
+        data.forEach(function(quest){
+          quest.time = InputConversion.minutesToHours(quest.time);
+        });
+      }
       if(type === 'created'){
-        $scope.quests = data;
+        $scope.createdQuests = data;
       }
       else if(type === 'toDo'){
         $scope.questsToDo = data;
       }
+      else if(type === 'completed'){
+        $scope.completedQuests = data;
+      }
   	})
+  };
+
+  $scope.completeQuest = function(questId){
+    Profile.completeQuest(questId, $scope.token)
+    .then(function(data){
+      console.log('data', data);
+    })
+    console.log('questId', questId);
   };
 
   var sessionCheck = function(){
@@ -60,6 +71,17 @@ angular.module('cityQuest.profile', [])
     else{
       $scope.showNoQuestsToDoFoundMsg = true;
     }
+    if($scope.profile.completed_quests.length > 0){
+      var completedQuestsArray = [];
+      $scope.profile.completed_quests.forEach(function(quest){
+        completedQuestsArray.push(quest.quest_id);
+      });
+      getAllQuestsById(completedQuestsArray, 'completed');
+    }
+    else{
+      $scope.showNoQuestsCompletedFoundMsg = true;
+    }
   });
+
 
 });
