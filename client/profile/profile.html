@@ -23,7 +23,7 @@
 <div class="clear"></div>
 <div id='signup' class='col-md-12'>
   <div class="col-md-4 col-md-offset-4">
-    <h2 class="sign-in-up-title fade-in-three-quarter-sec">Profile</h2>
+    <h2 class="sign-in-up-title">Profile</h2>
     
     <form name="updateProfile" ng-submit='updateProfile()'>
 
@@ -31,12 +31,6 @@
       First Name:<input type='text' name='firstName' placeholder='First Name' class='form-control my-margin-quarter-em fade-in-three-quarter-sec shadow' ng-model='profile.first_name'>
       Last Name:<input type='text' name='lastName' placeholder='Last Name' class='form-control my-margin-quarter-em fade-in-three-quarter-sec shadow' ng-model='profile.last_name'>
       Created Quests:<input type='text' name='createdQuests' placeholder='Last Name' class='form-control my-margin-quarter-em fade-in-three-quarter-sec shadow' ng-model='profile.created_quests_ids[0]'>
-
-
-<!--       <input type='text' name='username' placeholder='Username' class='form-control my-margin-quarter-em fade-in-three-quarter-sec shadow' ng-model='profile.username'>
-      <input type='text' name='username' placeholder='Username' class='form-control my-margin-quarter-em fade-in-three-quarter-sec shadow' ng-model='profile.username'>
-      <input type='text' name='username' placeholder='Username' class='form-control my-margin-quarter-em fade-in-three-quarter-sec shadow' ng-model='profile.username'> -->
-
 
     </form>
 
@@ -143,6 +137,11 @@
                 </div>
               </div>
             </div>
+
+            <div class="col-md-12 tab">
+              <div class="row btn" ng-click="completeQuest(quest._id)">Mark as Complete</div>
+            </div>
+
           </div>
           <div class="clean"></div>
           </div>

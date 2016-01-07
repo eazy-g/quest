@@ -14,7 +14,16 @@ angular.module('cityQuest.profileService', [])
     })
   };
 
-
+  profile.completeQuest = function(questId, token){
+    return $http({
+      method: 'POST',
+      url: '/api/completeQuest',
+      data{questId: questId, token: token}
+    })
+    .then(function (resp){
+      return resp.data;
+    })
+  };
 
   return profile;
 });

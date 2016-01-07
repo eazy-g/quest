@@ -2,8 +2,6 @@ angular.module('cityQuest.profile', [])
 
 .controller('profileCtrl', function ($q, $scope, $location, $window, Profile, Auth, QuestStorage, InputConversion){
 
-	// $scope.user = {}
-
 	$scope.token = $window.localStorage.getItem('sessiontoken');
   $scope.showNoQuestsFoundMsg = false;
   $scope.showNoQuestsToDoFoundMsg = false;
@@ -33,6 +31,14 @@ angular.module('cityQuest.profile', [])
         $scope.questsToDo = data;
       }
   	})
+  };
+
+  $scope.completeQuest = function(questId, token){
+    Profile.completeQuest(questId, token)
+    .then(function(data){
+      
+    })
+    console.log('questId', questId);
   };
 
   var sessionCheck = function(){

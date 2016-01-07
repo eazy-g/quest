@@ -100,6 +100,27 @@ module.exports = {
       })
     },
 
+  completeQuest: function(req, res, next){
+    var token = req.body.token;
+    var decoded = jwt.decode(token, 'secret');
+    var userId = decoded._id;
+    var questId = req.body.questId;
+
+    User.findOneAndUpdate(
+      { _id: userId }, 
+      { $push: { "completed_quests": {"quest_id": questId} } }, 
+      callback)
+
+    var findUser = Q.nbind(User.findOne, User);
+    findUser({username: username})
+    .then(function (user) {
+      res.json({profile: user});
+    })
+    .fail(function (error) {
+      next(error);
+    });
+  },
+
   checkAuth: function (req, res, next) {
 
     var token = req.headers['x-access-token'];

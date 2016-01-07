@@ -17,8 +17,7 @@ var signin = userModels.signin;
 var authUser = userModels.checkAuth;
 var getProfile = userModels.getProfile;
 var storeQuestId = userModels.storeQuestId;
-
-
+var completeQuest = userModels.completeQuest;
 
 app.use('api/quests*', jwt);
 
@@ -92,7 +91,9 @@ app.post('/api/storeQuestId', function (req, res) {
   storeQuestId(req, res, res.send);
 });
 
-
+app.post('/api/completeQuest', function (req,res){
+	completeQuest(req, res, res.send);
+})
 
 
 // Wildcard Files
