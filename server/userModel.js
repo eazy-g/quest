@@ -16,8 +16,9 @@ module.exports = {
           return user.comparePasswords(password)
             .then(function(foundUser) {
               if (foundUser) {
+                var homeCity = user.home_city;
                 var token = jwt.encode(user, 'secret');
-                res.json({token: token});
+                res.json({token: token, homeCity: homeCity});
               } else {
                 res.status(401).send( { message: 'Incorrect Username/Password'  });
               }
