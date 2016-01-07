@@ -59,6 +59,19 @@ angular.module('cityQuest.questStorageService', [])
         });
   };
 
+  questStorage.getAllQuestsById = function(questIds){
+    return $http.get(
+       '/api/quests/?_id=' + questIds 
+        )
+        .then(function(res){
+          var fetchedQuestsByIds = res.data;
+          return fetchedQuestsByIds;
+        })
+        .catch(function(err){
+          console.log("getAllQuestsByIds did not return any quests: ", err);
+        });
+  };
+
   questStorage.saveNewQuestAndGoToQuestList = function(quest){
     $http({
         method: 'POST',

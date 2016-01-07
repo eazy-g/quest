@@ -16,9 +16,11 @@ angular.module('cityQuest.questList', [])
       if(questsFound){
         quests.forEach(function(quest){
           quest.time = InputConversion.minutesToHours(quest.time);
+          console.log('quest.id', quest._id);
         });
         $scope.quests = quests;
-      }else{
+      }
+      else{
         $scope.showNoQuestsFoundMsg = true;
       }
     })
