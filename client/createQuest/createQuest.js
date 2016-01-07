@@ -9,7 +9,8 @@ angular.module('cityQuest.createQuest', [])
                                         InputConversion,
                                         FormValidation,
                                         Profile){
-  $scope.currCity = InputConversion.capitalizeFirstLetter($window.localStorage.getItem('city'));
+  // $scope.currCity = InputConversion.capitalizeFirstLetter($window.localStorage.getItem('city'));
+  $scope.currCity = Profile.homeCity;
   $scope.userLocation = QuestStorage.getCoords();
 
   $scope.quest = {
