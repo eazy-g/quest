@@ -93,7 +93,8 @@ angular.module('cityQuest.questView', [])
     Auth.signout();
   };
 
-  $scope.rate = function() {
+  $scope.rate = function(rating) {
+   console.log('RATED', rating);
 
   }
   //scope.rate in html{{}} - make sure value is being updated
