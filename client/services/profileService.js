@@ -3,6 +3,8 @@ angular.module('cityQuest.profileService', [])
 .factory('Profile', function ($http, $location, $window) {
   var profile = {};
 
+  profile.homeCity = null;
+
   profile.getProfile = function (token){
     return $http({
       method: 'POST',

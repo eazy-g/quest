@@ -12,6 +12,8 @@ angular.module('cityQuest.profile', [])
 		Profile.getProfile($scope.token)
 		.then(function(data){
 			$scope.profile = data.profile;
+      $scope.profile.home_city = InputConversion.capitalizeFirstLetter($scope.profile.home_city);
+      Profile.homeCity = $scope.profile.home_city;
 			deferred.resolve();
 			// console.log('$scope.profile', $scope.profile);
 		});
