@@ -129,6 +129,7 @@ angular.module('cityQuest.createQuest', [])
     });
   };
 
+
   sessionCheck();
   loadGoogleMapAndListenForMarkerClicks();
 });

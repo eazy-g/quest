@@ -1,7 +1,8 @@
-angular.module('cityQuest.questView', [])
+   angular.module('cityQuest.questView', [])
 
 .controller('questViewCtrl', function($scope, $routeParams, $window, QuestStorage, uiGmapGoogleMapApi, Auth, InputConversion){
   $scope.questId = $routeParams.questId;
+  $scope.rating = 0;
 
   //if the city has been set by searching for a city
   if(!!$window.localStorage.getItem('city')){
@@ -92,6 +93,26 @@ angular.module('cityQuest.questView', [])
   $scope.signout = function() {
     Auth.signout();
   };
+
+  $scope.rate = function() {
+    console.log($scope.rating);
+    var max = 5;
+    var ratearray = [];
+// Handle this with alert "please enter a rating"
+    if($scope.rating === "") {
+       $scope.rating = 1;
+     }
+
+     function updateCoins() {
+       var coins = [];
+
+       for (var i = 0; i < max.length; i++) {
+         ratearray.push(coins);
+       }
+     }
+  }
+
+  // give scopequestid and rating for post request to be stored in DB
 
   var sessionCheck = function(){
     if(!Auth.isAuth()){

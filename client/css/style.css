@@ -336,7 +336,7 @@ tags-input .tags .tag-item {
 }
 
 .angular-google-map-container {
- height: 400px; 
+ height: 400px;
 }
 
 .quest-view-image {
@@ -444,3 +444,27 @@ tags-input .tags .tag-item {
   font-size: 1.3em;
   margin-top: 14px;
 }
+
+.star-rating {
+  margin: 0;
+  padding: 0;
+  display: inline-block;
+  }
+
+  .star {
+    padding: 1px;
+    color: #ddd;
+    font-size: 20px;
+    text-shadow: .05em .05em #aaa;
+    list-style-type: none;
+    display: inline-block;
+    cursor: pointer;
+  }
+   .star.filled {
+      color: #fd0;
+    }
+
+  .readonly .star.filled {
+    color: #666;
+  }
+

@@ -35,9 +35,27 @@
           <div class="col-md-9">
             <h1 class="quest-view-title">{{ quest.name }}</h1>
             <h4 class="quest-view-descript">{{ quest.description }}</h4>
+
+
+
+<!-- RATING field -->
+<div class="col-md-4" style="margin-left:700px;">
+                <form ng-submit="rate()">
+                  <div class="input-group">
+                    <star-rating ng-model="rating" readonly="false"></star-rating>
+                  <span class="input-group-btn">
+                    <button href=''  class="btn btn-default input-submit fade-in-1-and-three-quarter-sec" type="submit">Rate</button>
+                  </span>
+                </div>
+              </form>
+            </div>
+<!-- END RATING field -->
           </div>
+
           <div class="col-md-3" style="margin-top:15px;">
+
             <div class="row">
+
               <div class="col-md-5 tab">
                 <div class="row">
                   <div class="col-md-3 tab-image-container">
@@ -69,6 +87,7 @@
               </div>
             </div>
           </div>
+
           <div class="col-md-6">
             <h2 class="">Steps</h2>
             <div class="row quest-view-steps" ng-repeat='step in quest.steps'>
@@ -79,12 +98,15 @@
 
             <span class="tags">Tags: </span>
             <span ng-repeat='tag in quest.tags'><span class="quest-view-tags">{{tag.text}}</span></span>
+            <br>
 
             <div class="clean"></div>
 
           </div>
           <div class="col-md-6 maps">
+
            <ui-gmap-google-map center="map.center" zoom="map.zoom" events="map.events" options="map.options">
+
                 <ui-gmap-marker
                     ng-repeat="marker in markers"
                     coords="marker.coords"
