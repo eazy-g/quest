@@ -97,8 +97,8 @@ angular.module('cityQuest.questView', [])
    console.log('RATED', rating);
 
   }
-  //scope.rate in html{{}} - make sure value is being updated
-  // give scopequestid and rating for post request
+
+  // give scopequestid and rating for post request to be stored in DB
 
   var sessionCheck = function(){
     if(!Auth.isAuth()){
