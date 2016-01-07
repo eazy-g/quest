@@ -83,4 +83,6 @@ angular.module('cityQuest.profile', [])
 
   ///GIT TROUBLE
 
+  sessionCheck();
+
 });
