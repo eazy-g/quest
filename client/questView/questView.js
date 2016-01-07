@@ -95,7 +95,7 @@
   };
 
   $scope.rate = function() {
-    console.log('RATEDYAYYYY', $scope.rating);
+    console.log($scope.rating);
     var max = 5;
     var ratearray = [];
 // Handle this with alert "please enter a rating"
