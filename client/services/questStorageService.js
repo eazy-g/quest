@@ -38,7 +38,7 @@ angular.module('cityQuest.questStorageService', [])
       '/api/quests/?_id=' + questId
       ).then(function(res){
         return res.data[0];
-    }) 
+    })
     .catch(function(err){
         console.log("getSingleQuest did not return any quests: ", err);
     });
@@ -63,6 +63,14 @@ angular.module('cityQuest.questStorageService', [])
         url: '/api/quests',
         data: quest
       })
+    .then(function(res){
+      var token = $window.localStorage.getItem('sessiontoken');
+      $http({
+        method: 'POST',
+        url: '/api/storeQuestId',
+        data: {"questId": res.data._id, "token": token}
+      })
+    })
     .then(function(res){
       $location.path('/questList');
     });

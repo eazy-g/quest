@@ -16,6 +16,7 @@ var signup = userModels.signup;
 var signin = userModels.signin;
 var authUser = userModels.checkAuth;
 var getProfile = userModels.getProfile;
+var storeQuestId = userModels.storeQuestId;
 
 
 
@@ -72,6 +73,10 @@ app.post('/api/geocode*', function(req, res){
 
 app.post('/api/getProfile', function (req, res){
 	getProfile(req, res, res.send);
+});
+
+app.post('/api/storeQuestId', function (req, res) {
+  storeQuestId(req, res, res.send);
 });
 
 

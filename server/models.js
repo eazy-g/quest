@@ -7,7 +7,7 @@ var Schema = mongoose.Schema;
 var questSchema = new Schema({
 	name: String,
 	description: String,
-	tags: [], 
+	tags: [],
 	time: Number,
 	id: Number,
 	city: String,
@@ -38,8 +38,8 @@ var userSchema = new Schema({
   last_name: String,
   age: Number,
   home_city: String,
-  created_quests_ids: [Number],
-  quests_to_do_ids: [Number]
+  created_quests_ids: [String],
+  quests_to_do_ids: [String]
 
 });
 
