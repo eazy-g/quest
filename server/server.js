@@ -18,6 +18,9 @@ var authUser = userModels.checkAuth;
 var getProfile = userModels.getProfile;
 var storeQuestId = userModels.storeQuestId;
 var completeQuest = userModels.completeQuest;
+var getPhoneNumberFromQuest = userModels.getPhoneNumberFromQuest;
+//twilio client
+var client = require('twilio')('ACaf2d26a87753a45902190e74454abfe4', '9a3f9f79e36f34b827b83b228ab29f00');
 
 app.use('api/quests*', jwt);
 
@@ -61,8 +64,7 @@ app.get('/api/quests*', function(req, res){
 	if(req.query.hasOwnProperty('_id') && req.query._id.indexOf(',') > -1){
 		var idArray = req.query._id.split(',')
 		Quest.find({ 
-			'_id' : { $in : idArray
-		} 
+			'_id' : { $in : idArray} 
 		})
 		.then(function(quests){
 			res.send(quests);
@@ -70,7 +72,6 @@ app.get('/api/quests*', function(req, res){
 	}
 	else{
 		Quest.find(req.query).then(function(quests){
-			console.log('quests', quests);
 			res.send(quests);
 		});
 	}
@@ -92,13 +93,13 @@ app.post('/api/storeQuestId', function (req, res) {
 });
 
 app.post('/api/completeQuest', function (req,res){
+	// getPhoneNumberFromQuest(req, res, res.send);
 	completeQuest(req, res, res.send);
-})
-
+});
 
 // Wildcard Files
 app.get('/*', function(req, res){
-      res.sendFile(path.join(__dirname + '/../' + req.url));
+  res.sendFile(path.join(__dirname + '/../' + req.url));
 });
 
 app.listen(app.get('port'), function(){

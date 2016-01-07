@@ -18,7 +18,7 @@ angular.module('cityQuest.profileService', [])
     return $http({
       method: 'POST',
       url: '/api/completeQuest',
-      data{questId: questId, token: token}
+      data: {questId: questId, token: token}
     })
     .then(function (resp){
       return resp.data;

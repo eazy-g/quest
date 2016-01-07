@@ -1,6 +1,7 @@
 var User = require('./models.js').User;
 var Q    = require('q');
 var jwt  = require('jwt-simple');
+var client = require('twilio')('ACaf2d26a87753a45902190e74454abfe4', '9a3f9f79e36f34b827b83b228ab29f00');
 
 module.exports = {
   signin: function (req, res, next) {
@@ -102,23 +103,39 @@ module.exports = {
 
   completeQuest: function(req, res, next){
     var token = req.body.token;
-    var decoded = jwt.decode(token, 'secret');
-    var userId = decoded._id;
     var questId = req.body.questId;
 
+    var decoded = jwt.decode(token, 'secret');
+    var userId = decoded._id;
+    
     User.findOneAndUpdate(
-      { _id: userId }, 
-      { $push: { "completed_quests": {"quest_id": questId} } }, 
-      callback)
-
-    var findUser = Q.nbind(User.findOne, User);
-    findUser({username: username})
-    .then(function (user) {
-      res.json({profile: user});
+      { _id: userId },
+      { 
+        $push: { "completed_quests" : {"quest_id":questId} }
+        // ,$pull: {"quests_to_do_ids" : questId}
+      }
+    )
+    .then(function(data){
+      // User.find({"created_quests_ids": quest_id})
+      // .then(function(user){
+      //   console.log('user', user)
+        client.sendMessage({
+            to:'+18659197597', // Any number Twilio can deliver to
+            from: '+18652975047', // A number you bought from Twilio and can use for outbound communication
+            body: 'you completed the quest.' // body of the SMS message
+        }, function(err, responseData) { if(err){console.log(err);}}
+        );
+      // });
+      res.status(201).send();
     })
-    .fail(function (error) {
-      next(error);
-    });
+  },
+
+  getPhoneNumberFromQuest: function(req, res, next){
+    var questId = req.body.questId;
+    User.find({"created_quests_ids": questId})
+    .then(function(user){
+      console.log('user', user);
+    })
   },
 
   checkAuth: function (req, res, next) {
