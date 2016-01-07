@@ -34,6 +34,8 @@ module.exports = {
         password  = req.body.password,
         firstName = req.body.firstName,
         lastName = req.body.lastName,
+        homeCity = req.body.homeCity,
+        telNumber = req.body.telNumber,
         create,
         newUser;
 
@@ -51,7 +53,9 @@ module.exports = {
             username: username,
             password: password,
             first_name: firstName,
-            last_name: lastName
+            last_name: lastName,
+            home_city: homeCity,
+            tel_number: telNumber
           };
           return create(newUser);
         }
