@@ -94,7 +94,20 @@ angular.module('cityQuest.questView', [])
   };
 
   $scope.rate = function(rating) {
-   console.log('RATED', rating);
+   console.log('RATEDYAYYYY', rating);
+   var max = 5;
+   var ratearray = [];
+
+   if(max === undefined) {
+     max = 1;
+   }
+
+   function updateCoins() {
+     var coins = [];
+   for (var i = 0; i < max.length; i++) {
+     ratearray.push(coins);
+   }
+  }
 
   }
 
