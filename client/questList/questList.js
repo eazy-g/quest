@@ -3,6 +3,7 @@ angular.module('cityQuest.questList', [])
 .controller('questListCtrl', function($scope, $window, QuestStorage, Auth, InputConversion, $location){
   $scope.quests = null;
   $scope.showNoQuestsFoundMsg = false;
+  $scope.signedIn = false;
   $scope.currCity = InputConversion.capitalizeFirstLetter($window.localStorage.getItem('city'));
   $scope.signout = function() {
     Auth.signout();
@@ -28,10 +29,13 @@ angular.module('cityQuest.questList', [])
 
   var sessionCheck = function(){
     if(!Auth.isAuth()){
-      $location.path('/signin')
+      $scope.signedIn = false;
+    }
+    else{
+      $scope.signedIn = true;
     }
   };
 
-  // sessionCheck();
+  sessionCheck();
   getAllQuests();
 });

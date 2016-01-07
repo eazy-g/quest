@@ -8,7 +8,7 @@ angular.module('cityQuest.questStorageService', [])
   };
 
   questStorage.setCityCoordinates = function(cityStr){
-    $http({
+    return $http({
         method: 'POST',
         url: '/api/geocode',
         data: {"city": cityStr}

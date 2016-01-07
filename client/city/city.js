@@ -14,6 +14,7 @@ angular.module('cityQuest.city', [])
   };
 
   //This will be refactored later to get two random, top rated quests
+  //right now it gets all quests
   var getTwoRandomQuests = function(){
     QuestStorage.getAllQuests()
     .then(function(quests){
