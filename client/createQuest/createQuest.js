@@ -7,7 +7,8 @@ angular.module('cityQuest.createQuest', [])
                                         uiGmapGoogleMapApi,
                                         Auth,
                                         InputConversion,
-                                        FormValidation){
+                                        FormValidation,
+                                        Profile){
   $scope.currCity = InputConversion.capitalizeFirstLetter($window.localStorage.getItem('city'));
   $scope.userLocation = QuestStorage.getCoords();
 
@@ -118,10 +119,10 @@ angular.module('cityQuest.createQuest', [])
                 $scope.$apply();
             }
       },
-      center: { 
+      center: {
          latitude: $scope.userLocation.lat,
          longitude: $scope.userLocation.lng
-       }, 
+       },
       zoom: 13
     }
     });

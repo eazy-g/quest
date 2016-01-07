@@ -79,6 +79,14 @@ angular.module('cityQuest.questStorageService', [])
         data: quest
       })
     .then(function(res){
+      var token = $window.localStorage.getItem('sessiontoken');
+      $http({
+        method: 'POST',
+        url: '/api/storeQuestId',
+        data: {"questId": res.data._id, "token": token}
+      })
+    })
+    .then(function(res){
       $location.path('/questList');
     });
   };

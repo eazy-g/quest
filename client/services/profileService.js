@@ -14,5 +14,7 @@ angular.module('cityQuest.profileService', [])
     })
   };
 
+
+
   return profile;
 });

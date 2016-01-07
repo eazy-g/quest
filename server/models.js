@@ -7,7 +7,7 @@ var Schema = mongoose.Schema;
 var questSchema = new Schema({
 	name: String,
 	description: String,
-	tags: [], 
+	tags: [],
 	time: Number,
 	city: String,
 	address: String,

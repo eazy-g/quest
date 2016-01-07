@@ -82,11 +82,26 @@ module.exports = {
     });
   },
 
+  storeQuestId: function(req, res, next){
+
+    var questId = req.body.questId;
+    var token = req.body.token;
+    var decoded = jwt.decode(token, 'secret');
+    var userId = decoded._id;
+
+    User.findOneAndUpdate({'_id': userId},
+     { $push: { "created_quests_ids": questId }})
+      .then (function(err){
+        if (err) {
+          console.log(err)
+        } else {
+          res(201, "users quests updated")
+        }
+      })
+    },
+
   checkAuth: function (req, res, next) {
-    // checking to see if the user is authenticated
-    // grab the token in the header if any
-    // then decode the token, which we end up being the user object
-    // check to see if that user exists in the database
+
     var token = req.headers['x-access-token'];
     if (!token) {
       next(new Error('No token'));
