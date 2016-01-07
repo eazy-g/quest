@@ -113,12 +113,12 @@ module.exports = {
 
     var decoded = jwt.decode(token, 'secret');
     var userId = decoded._id;
-    
+
     User.findOneAndUpdate(
       { _id: userId },
-      { 
+      {
         $push: { "completed_quests" : {"quest_id":questId} }
-        // ,$pull: {"quests_to_do_ids" : questId}
+        ,$pull: {"quests_to_do_ids" : questId}
       }
     )
     .then(function(data){
