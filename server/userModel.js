@@ -75,7 +75,6 @@ module.exports = {
     var findUser = Q.nbind(User.findOne, User);
     findUser({username: username})
     .then(function (user) {
-      console.log('user', user);
       res.json({profile: user});
     })
     .fail(function (error) {

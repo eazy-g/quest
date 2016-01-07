@@ -57,10 +57,23 @@ app.post('/api/users/signin', function(req, res){
 
 
 app.get('/api/quests*', function(req, res){
-	console.log(req.query);
-	Quest.find(req.query).then(function(quests){
-		res.send(quests);
-	});
+
+	if(req.query.hasOwnProperty('_id') && req.query._id.indexOf(',') > -1){
+		var idArray = req.query._id.split(',')
+		Quest.find({ 
+			'_id' : { $in : idArray
+		} 
+		})
+		.then(function(quests){
+			res.send(quests);
+		});
+	}
+	else{
+		Quest.find(req.query).then(function(quests){
+			console.log('quests', quests);
+			res.send(quests);
+		});
+	}
 });
 
 app.post('/api/geocode*', function(req, res){

@@ -9,7 +9,6 @@ var questSchema = new Schema({
 	description: String,
 	tags: [], 
 	time: Number,
-	id: Number,
 	city: String,
 	address: String,
 	cost: Number,
@@ -38,8 +37,8 @@ var userSchema = new Schema({
   last_name: String,
   age: Number,
   home_city: String,
-  created_quests_ids: [Number],
-  quests_to_do_ids: [Number]
+  created_quests_ids: [String],
+  quests_to_do_ids: [String]
 
 });
 
