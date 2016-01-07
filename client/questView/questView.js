@@ -2,29 +2,70 @@ angular.module('cityQuest.questView', [])
 
 .controller('questViewCtrl', function($scope, $routeParams, $window, QuestStorage, uiGmapGoogleMapApi, Auth, InputConversion){
   $scope.questId = $routeParams.questId;
-  $scope.myloc = QuestStorage.getCoords();
-  $scope.markers = [];
-  $scope.currCity = InputConversion.capitalizeFirstLetter($window.localStorage.getItem('city'));
-  uiGmapGoogleMapApi.then(function(maps){
-    fetch();
-    $scope.map = {
-      events: {
-            tilesloaded: function (map) {
-                $scope.$apply(function () {
-                    $scope.mapInstance = map;
-                });
-            },
-      },
-      center: {
-         latitude: $scope.myloc.lat,
-         longitude: $scope.myloc.lng
-      },
-      zoom: 11,
-      options: {
-        scrollwheel: false
+
+  //if the city has been set by searching for a city
+  if(!!$window.localStorage.getItem('city')){
+    $scope.myloc = QuestStorage.getCoords();
+    $scope.markers = [];
+    $scope.currCity = InputConversion.capitalizeFirstLetter($window.localStorage.getItem('city'));
+    uiGmapGoogleMapApi.then(function(maps){
+      fetch();
+      $scope.map = {
+        events: {
+              tilesloaded: function (map) {
+                  $scope.$apply(function () {
+                      $scope.mapInstance = map;
+                  });
+              },
+        },
+        center: {
+           latitude: $scope.myloc.lat,
+           longitude: $scope.myloc.lng
+        },
+        zoom: 11,
+        options: {
+          scrollwheel: false
+        }
       }
-    }
-  });
+    });
+  }else{ //otherwise, we are trying to get to a quest from the home page
+    QuestStorage.getSingleQuest($scope.questId)
+    .then(function(quest){
+      $window.localStorage.setItem('city', quest.city);
+      return quest;
+    })
+    .then(function(quest){
+      return QuestStorage.setCityCoordinates(quest.city);
+    })
+    .then(function(){
+      console.log('coords', $window.localStorage.getItem('coords'))
+        $scope.myloc = QuestStorage.getCoords();
+        console.log('scope.myloc', $scope.myloc);
+          $scope.markers = [];
+          $scope.currCity = InputConversion.capitalizeFirstLetter($window.localStorage.getItem('city'));
+          uiGmapGoogleMapApi.then(function(maps){
+            fetch();
+            $scope.map = {
+              events: {
+                    tilesloaded: function (map) {
+                        $scope.$apply(function () {
+                            $scope.mapInstance = map;
+                        });
+                    },
+              },
+              center: {
+                 latitude: $scope.myloc.lat,
+                 longitude: $scope.myloc.lng
+              },
+              zoom: 11,
+              options: {
+                scrollwheel: false
+              }
+            }
+          });
+    });
+  }
+
 
   var fetch = function(cb){
     QuestStorage.getSingleQuest($scope.questId).then(function(quest){
@@ -58,6 +99,6 @@ angular.module('cityQuest.questView', [])
     }
   };
 
-  sessionCheck();
+  // sessionCheck();
 });
 

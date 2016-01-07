@@ -1,3 +1,7 @@
+<style>
+  body {background-size: contain;}
+</style>
+
 <div class="logo-search"></div>
 
 <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -47,6 +51,7 @@
           <div class="col-md-5 no-padding-right quest-text">
             <a href="/#/questView/{{quest._id}}"><h2 class="quest-title">{{ quest.name }}</h2></a>
 
+            <h5>...in {{quest.city}}</h5>
             <p class="quest-descript">{{ quest.description }}</p>
             <span ng-repeat='tag in quest.tags'><span class="quest-view-tags">{{tag.text}}</span></span>
           </div>
