@@ -1,6 +1,6 @@
    angular.module('cityQuest.questView', [])
 
-.controller('questViewCtrl', function($scope, $routeParams, $window, QuestStorage, uiGmapGoogleMapApi, Auth, InputConversion){
+.controller('questViewCtrl', function($location, $scope, $routeParams, $window, QuestStorage, uiGmapGoogleMapApi, Auth, InputConversion){
   $scope.questId = $routeParams.questId;
   $scope.rating = 0;
   $scope.token = $window.localStorage.getItem('sessiontoken');
@@ -120,7 +120,7 @@
   $scope.queueQuest = function(){
     QuestStorage.queueQuest($scope.questId, $scope.token)
     .then(function(resp){
-      console.log('resp', resp)
+      $location.path('/profile');
     })
     .catch(function(error){
       console.log(error);
