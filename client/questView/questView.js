@@ -100,20 +100,12 @@
   };
 
   $scope.rate = function() {
+    QuestStorage.getSingleQuest($scope.questId, $scope.rating);
     console.log($scope.rating);
     var max = 5;
     var ratearray = [];
-// Handle this with alert "please enter a rating"
     if($scope.rating === "") {
        $scope.rating = 1;
-     }
-
-     function updateCoins() {
-       var coins = [];
-
-       for (var i = 0; i < max.length; i++) {
-         ratearray.push(coins);
-       }
      }
   }
 
@@ -130,8 +122,6 @@
   $scope.range = function(n) {
     return new Array(n);
   };
-
-  // give scopequestid and rating for post request to be stored in DB
 
   var sessionCheck = function(){
     if(!Auth.isAuth()){

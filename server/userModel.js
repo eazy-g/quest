@@ -182,3 +182,19 @@ module.exports = {
     }
   }
 };
+
+storeRating: function(req, res, next){
+
+    var questId = req.body.questId;
+    var rating = req.body.rating;
+
+    Quest.findOneAndUpdate({'quest_id': questId},
+     { $push: { "rating": questId }})
+      .then (function(err){
+        if (err) {
+          console.log(err)
+        } else {
+          res(201, "users rating updated")
+        }
+      })
+    },

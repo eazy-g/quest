@@ -20,6 +20,8 @@ var storeQuestId = userModels.storeQuestId;
 var completeQuest = userModels.completeQuest;
 var getPhoneNumberFromQuest = userModels.getPhoneNumberFromQuest;
 var queueQuest = userModels.queueQuest;
+var storeRating = userModels.storeRating;
+
 //twilio client
 var client = require('twilio')('ACaf2d26a87753a45902190e74454abfe4', '9a3f9f79e36f34b827b83b228ab29f00');
 
@@ -113,4 +115,8 @@ app.get('/*', function(req, res){
 
 app.listen(app.get('port'), function(){
 	console.log('Node app is running on port', app.get('port'));
+});
+
+app.post('/api/storeRating', function (req, res) {
+  storeRating(req, res, res.send);
 });

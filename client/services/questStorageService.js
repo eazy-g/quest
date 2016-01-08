@@ -44,6 +44,20 @@ angular.module('cityQuest.questStorageService', [])
     });
   };
 
+  questStorage.getRating = function(questId, rating){
+    $http({
+        method: 'POST',
+        url: '/api/storeRating',
+        data: {'questId': questId, 'rating': rating}
+      })
+      .then(function(res){
+        return res.data[0];
+    })
+    .catch(function(err){
+        console.log("getRating did not return any quests: ", err);
+    });
+  };
+
   questStorage.getAllQuests = function(){
     return $http.get(
        '/api/quests/?city=' + $window.localStorage.getItem('city')
