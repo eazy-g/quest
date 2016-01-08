@@ -63,7 +63,7 @@ angular.module('cityQuest.profile', [])
       getAllQuestsById($scope.profile.created_quests_ids, 'created');
     }
     else{
-      $scope.showNoQuestsToDoFoundMsg = true;
+      $scope.showNoQuestsFoundMsg = true;
     }
     if($scope.profile.quests_to_do_ids.length > 0){
       getAllQuestsById($scope.profile.quests_to_do_ids, 'toDo');
