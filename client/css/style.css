@@ -456,20 +456,30 @@ tags-input .tags .tag-item {
   display: inline-block;
   }
 
-  .star {
-    padding: 1px;
-    color: #ddd;
-    font-size: 20px;
-    text-shadow: .05em .05em #aaa;
-    list-style-type: none;
-    display: inline-block;
-    cursor: pointer;
-  }
-   .star.filled {
-      color: #fd0;
-    }
+.star {
+  padding: 1px;
+  color: #ddd;
+  font-size: 20px;
+  text-shadow: .05em .05em #aaa;
+  list-style-type: none;
+  display: inline-block;
+  cursor: pointer;
+}
+.star.filled {
+  color: #fd0;
+}
 
-  .readonly .star.filled {
-    color: #666;
-  }
+.readonly .star.filled {
+  color: #666;
+}
+
+.stared {
+  padding: 1px;
+  color: #ddd;
+  font-size: 20px;
+  text-shadow: .05em .05em #aaa;
+  list-style-type: none;
+  display: inline-block;
+  color: #fd0;
+}
 
