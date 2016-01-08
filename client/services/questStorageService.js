@@ -45,10 +45,8 @@ angular.module('cityQuest.questStorageService', [])
   };
 
   questStorage.getAllQuests = function(){
-    //the or 'austin' is a temporary placeholder to get quests for front page
-    var searchCity = $window.localStorage.getItem('city') || 'austin';
     return $http.get(
-       '/api/quests/?city=' + searchCity
+       '/api/quests/?city=' + $window.localStorage.getItem('city')
         )
         .then(function(res){
           var fetchedQuests = res.data;
@@ -59,9 +57,21 @@ angular.module('cityQuest.questStorageService', [])
         });
   };
 
+  questStorage.getTwoRandomQuests = function(){
+    return $http.get(
+      '/api/twoquests')
+      .then(function(res){
+        var fetchedQuests = res.data;
+        return fetchedQuests;
+      })
+      .catch(function(err){
+        console.log("get two quests did not work", err);
+      });
+  };
+
   questStorage.getAllQuestsById = function(questIds){
     return $http.get(
-       '/api/quests/?_id=' + questIds 
+       '/api/quests/?_id=' + questIds
         )
         .then(function(res){
           var fetchedQuestsByIds = res.data;
