@@ -3,6 +3,7 @@
 .controller('questViewCtrl', function($scope, $routeParams, $window, QuestStorage, uiGmapGoogleMapApi, Auth, InputConversion){
   $scope.questId = $routeParams.questId;
   $scope.rating = 0;
+  $scope.token = $window.localStorage.getItem('sessiontoken');
 
   //if the city has been set by searching for a city
   if(!!$window.localStorage.getItem('city')){
@@ -111,6 +112,16 @@
        }
      }
   }
+
+  $scope.queueQuest = function(){
+    QuestStorage.queueQuest($scope.questId, $scope.token)
+    .then(function(resp){
+      console.log('resp', resp)
+    })
+    .catch(function(error){
+      console.log(error);
+    })
+  };
 
   // give scopequestid and rating for post request to be stored in DB
 
