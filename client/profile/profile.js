@@ -1,6 +1,6 @@
 angular.module('cityQuest.profile', [])
 
-.controller('profileCtrl', function ($q, $scope, $location, $window, Profile, Auth, QuestStorage, InputConversion){
+.controller('profileCtrl', function ($q, $scope, $location, $window, $route, Profile, Auth, QuestStorage, InputConversion){
 
 	$scope.token = $window.localStorage.getItem('sessiontoken');
   $scope.showNoQuestsFoundMsg = false;
@@ -44,6 +44,7 @@ angular.module('cityQuest.profile', [])
     Profile.completeQuest(questId, $scope.token)
     .then(function(data){
       console.log('data', data);
+      $route.reload();
     })
     console.log('questId', questId);
   };
