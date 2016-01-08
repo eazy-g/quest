@@ -17,7 +17,7 @@
         <li><a class="active fade-in-three-quarter-sec" href="/#/">Select City</a></li>
         <li><a class="active fade-in-three-quarter-sec selected" href="/#/questList">Quest List</a></li>
         <li ng-show="signedIn"><a class="active fade-in-three-quarter-sec" href="/#/createQuest">Create Quest</a></li>
-        <li ng-show="signedIn"><a class="active fade-in-three-quarter-sec" style="color:#B3D221;" href="/#/profile">Profile</a></li>
+        <li ng-show="signedIn"><a class="active fade-in-three-quarter-sec" style="color:#B3D221;" href="/#/profile">Thy Library</a></li>
         <li ng-show="!signedIn"><a class="active fade-in-three-quarter-sec" href="/#/signin" >Sign In</a></li>
         <li ng-show="!signedIn"><a class="active fade-in-three-quarter-sec" style="color:#B3D221;" href="/#/signup" >Sign Up</a></li>
         <li ng-show="signedIn"><a class="active fade-in-three-quarter-sec" href="/#/" ng-click="signout()">Sign Out</a></li>
@@ -76,7 +76,7 @@
             </div>
 
             <div class="col-md-12 tab">
-              <div class="row btn" ng-show="signedIn" ng-click="queueQuest(quest._id)">Queue Quest</div>
+              <div class="row btn" ng-show="signedIn" ng-click="queueQuest(quest._id)">Take Quest!</div>
             </div>
           </div>
           <div class="clean"></div>

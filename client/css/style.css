@@ -21,7 +21,8 @@ a:hover {
 }
 
 .account {
-  color = white;
+  font-size: 18px;
+  text-shadow: 1px 1px #000;
 }
 
 .selected {
@@ -77,7 +78,7 @@ a:hover {
 }
 
 .questList {
-  margin-bottom: 30px;
+  margin-top: 10px;
 }
 
 .questItem {
