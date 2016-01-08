@@ -19,6 +19,7 @@ var getProfile = userModels.getProfile;
 var storeQuestId = userModels.storeQuestId;
 var completeQuest = userModels.completeQuest;
 var getPhoneNumberFromQuest = userModels.getPhoneNumberFromQuest;
+var queueQuest = userModels.queueQuest;
 //twilio client
 var client = require('twilio')('ACaf2d26a87753a45902190e74454abfe4', '9a3f9f79e36f34b827b83b228ab29f00');
 
@@ -98,9 +99,12 @@ app.post('/api/storeQuestId', function (req, res) {
 });
 
 app.post('/api/completeQuest', function (req,res){
-	// getPhoneNumberFromQuest(req, res, res.send);
 	completeQuest(req, res, res.send);
 });
+
+app.post('/api/queueQuest', function (req,res){
+	queueQuest(req, res, res.send);
+})
 
 // Wildcard Files
 app.get('/*', function(req, res){

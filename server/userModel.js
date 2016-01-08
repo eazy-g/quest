@@ -110,7 +110,6 @@ module.exports = {
   completeQuest: function(req, res, next){
     var token = req.body.token;
     var questId = req.body.questId;
-
     var decoded = jwt.decode(token, 'secret');
     var userId = decoded._id;
 
@@ -132,6 +131,22 @@ module.exports = {
         }, function(err, responseData) { if(err){console.log(err);}}
         );
       });
+      res.status(201).send();
+    })
+  },
+
+  queueQuest: function(req, res, next){
+    var token = req.body.token;
+    var questId = req.body.questId;
+    var decoded = jwt.decode(token, 'secret');
+    var userId = decoded._id; 
+    User.findOneAndUpdate(
+      { _id: userId },
+      { 
+        $push: { "quests_to_do_ids" : questId }
+      }
+    )
+    .then(function(data){
       res.status(201).send();
     })
   },
