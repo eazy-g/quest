@@ -72,6 +72,10 @@
   var fetch = function(cb){
     QuestStorage.getSingleQuest($scope.questId).then(function(quest){
       $scope.quest = quest;
+      //compute the averga rating of the quest and store in $scope.averageRating
+      $scope.averageRating = Math.round($scope.quest.rating.reduce(function(a,b){
+        return a + b;
+      })/$scope.quest.rating.length);
       $scope.quest.time = InputConversion.minutesToHours($scope.quest.time);
       $scope.quest.steps.forEach(function(step){
         step.cost = InputConversion.moneyConversion(step.cost)
@@ -121,6 +125,10 @@
     .catch(function(error){
       console.log(error);
     })
+  };
+
+  $scope.range = function(n) {
+    return new Array(n);
   };
 
   // give scopequestid and rating for post request to be stored in DB

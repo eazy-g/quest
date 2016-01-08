@@ -88,6 +88,16 @@
                 </div>
               </div>
               <div class="col-md-11 tab">
+                <div ng-show="signedIn">
+                  <p class="text-left">Quest Rating:</p>
+                  <ul class="text-left">
+                    <li ng-repeat="star in range(averageRating) track by $index" class="stared">
+                      <i class="fa fa-star"></i>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div class="col-md-11 tab">
                 <div class="row btn" ng-show="signedIn" ng-click="queueQuest()">Take Quest!</div>
               </div>
             </div>
