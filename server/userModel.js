@@ -109,6 +109,7 @@ module.exports = {
   completeQuest: function(req, res, next){
     var token = req.body.token;
     var questId = req.body.questId;
+    var questName = req.body.questName;
     var decoded = jwt.decode(token, 'secret');
     var userId = decoded._id;
 
@@ -121,12 +122,13 @@ module.exports = {
     )
     .then(function(data){
       User.find({"created_quests_ids": questId})
+
       .then(function(user){
-        console.log('user', user)
+        var userThatDidQuest = data.username;
         client.sendMessage({
-            to:'+18659197597', // Any number Twilio can deliver to
+            to:'+1' + user[0].tel_number, // Any number Twilio can deliver to
             from: '+18652975047', // A number you bought from Twilio and can use for outbound communication
-            body: 'you completed the quest.' // body of the SMS message
+            body: userThatDidQuest + ' completed your quest:' + questName + "!"  // body of the SMS message
         }, function(err, responseData) { if(err){console.log(err);}}
         );
       });

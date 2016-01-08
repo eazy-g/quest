@@ -1,11 +1,12 @@
 angular.module('cityQuest.city', [])
 
-.controller('cityCtrl', function($scope, $location, $window, QuestStorage, InputConversion, Auth){
+.controller('cityCtrl', function($scope, $location, $window, $route, QuestStorage, InputConversion, Auth){
   $scope.city = "";
   $scope.signedIn = !!$window.localStorage.getItem('sessiontoken');
 
   $scope.signout = function(){
     Auth.signout();
+    $route.reload();
   };
 
   $scope.citySelect = function(){
