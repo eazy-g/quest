@@ -20,7 +20,7 @@ angular.module('cityQuest.auth', [])
   $scope.signup = function () {
     Auth.signup($scope.user)
       .then(function (token) {
-        $location.path('/');
+        $location.path('/profile');
       })
       .catch(function (error) {
         $scope.err = error.data.message;
