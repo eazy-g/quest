@@ -7,7 +7,7 @@ angular.module('cityQuest.auth', [])
     Auth.signin($scope.user)
       .then(function () {
         if(Auth.isAuth()){
-          $location.path('/');
+          $location.path('/profile');
         }
       })
       .catch(function (error) {

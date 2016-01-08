@@ -13,7 +13,7 @@ angular.module('cityQuest.authenticationService', [])
       // default to home city for searches/creation
       $window.localStorage.setItem('city', resp.data.homeCity)
       QuestStorage.saveCity(resp.data.homeCity)
-      $location.path('/');
+      $location.path('/profile');
     });
   };
 

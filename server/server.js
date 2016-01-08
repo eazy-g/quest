@@ -58,13 +58,18 @@ app.post('/api/users/signin', function(req, res){
 	signin(req, res, res.send);
 });
 
+app.get('/api/twoquests', function(req, res){
+	Quest.find().limit(2).then(function(quests){
+		res.send(quests);
+	});
+});
 
 app.get('/api/quests*', function(req, res){
 
 	if(req.query.hasOwnProperty('_id') && req.query._id.indexOf(',') > -1){
 		var idArray = req.query._id.split(',')
-		Quest.find({ 
-			'_id' : { $in : idArray} 
+		Quest.find({
+			'_id' : { $in : idArray}
 		})
 		.then(function(quests){
 			res.send(quests);
