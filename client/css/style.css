@@ -20,6 +20,10 @@ a:hover {
   margin-top: 60px;
 }
 
+.account {
+  color = white;
+}
+
 .selected {
   color: #B3D221 !important;
 }

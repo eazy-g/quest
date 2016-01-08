@@ -82,7 +82,6 @@ module.exports = {
     findUser({username: username})
     .then(function (user) {
       res.json({profile: user});
-      console.log('this is user', user);
     })
     .fail(function (error) {
       next(error);
@@ -139,10 +138,10 @@ module.exports = {
     var token = req.body.token;
     var questId = req.body.questId;
     var decoded = jwt.decode(token, 'secret');
-    var userId = decoded._id; 
+    var userId = decoded._id;
     User.findOneAndUpdate(
       { _id: userId },
-      { 
+      {
         $push: { "quests_to_do_ids" : questId }
       }
     )
