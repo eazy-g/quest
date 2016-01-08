@@ -40,9 +40,11 @@
 
 
 <!-- RATING field -->
-<div class="col-md-4">
-  <h4 class="quest-view-descript">Opine upon this Quest:</h4>
-                <form ng-submit="rate()">
+
+            <div class="col-md-4">
+            <h4 class="quest-view-descript">Opine upon this Quest:</h4>
+                <form ng-submit="getRating()">
+
                   <div class="input-group">
                     <star-rating ng-model="rating" readonly="false"></star-rating>
                   <span class="input-group-btn">

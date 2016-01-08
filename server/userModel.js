@@ -1,4 +1,5 @@
 var User = require('./models.js').User;
+var Quest = require('./models.js').Quest;
 var Q    = require('q');
 var jwt  = require('jwt-simple');
 var client = require('twilio')('ACaf2d26a87753a45902190e74454abfe4', '9a3f9f79e36f34b827b83b228ab29f00');
@@ -136,7 +137,7 @@ module.exports = {
     })
   },
 
-  queueQuest: function(req, res, next){
+  queueQuest: function (req, res, next) {
     var token = req.body.token;
     var questId = req.body.questId;
     var decoded = jwt.decode(token, 'secret');
@@ -180,5 +181,21 @@ module.exports = {
           next(error);
         });
     }
-  }
-};
+  },
+
+
+storeRating: function (req, res, next) {
+
+    var questId = req.body.questId;
+    var rating = req.body.rating;
+    Quest.findOneAndUpdate({ _id: questId},
+     { $push: { "rating": rating }})
+      .then (function(err){
+        if (err) {
+          console.log(err)
+        } else {
+          res(201, "users rating updated")
+        }
+      })
+     }
+  };
