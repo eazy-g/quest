@@ -71,15 +71,27 @@ angular.module('cityQuest.questStorageService', [])
 
   questStorage.getAllQuestsById = function(questIds){
     return $http.get(
-       '/api/quests/?_id=' + questIds
-        )
-        .then(function(res){
-          var fetchedQuestsByIds = res.data;
-          return fetchedQuestsByIds;
-        })
-        .catch(function(err){
-          console.log("getAllQuestsByIds did not return any quests: ", err);
-        });
+     '/api/quests/?_id=' + questIds
+      )
+      .then(function(res){
+        var fetchedQuestsByIds = res.data;
+        return fetchedQuestsByIds;
+      })
+      .catch(function(err){
+        console.log("getAllQuestsByIds did not return any quests: ", err);
+      });
+  };
+
+  questStorage.queueQuest = function(questId, token){
+    console.log('hi');
+    return $http({
+      method: 'POST',
+      url: '/api/queueQuest',
+      data: {questId: questId, token: token}
+    })
+    .then(function (resp){
+      return resp.data;
+    })
   };
 
   questStorage.saveNewQuestAndGoToQuestList = function(quest){
