@@ -40,8 +40,8 @@ angular.module('cityQuest.profile', [])
   	})
   };
 
-  $scope.completeQuest = function(questId){
-    Profile.completeQuest(questId, $scope.token)
+  $scope.completeQuest = function(questId, questName){
+    Profile.completeQuest(questId, questName, $scope.token)
     .then(function(data){
       console.log('data', data);
       $route.reload();
