@@ -11,8 +11,8 @@ angular.module('cityQuest.authenticationService', [])
     .then(function (resp) {
       $window.localStorage.setItem('sessiontoken', resp.data.token);
       // default to home city for searches/creation
-      $window.localStorage.setItem('city', resp.data.homeCity)
-      QuestStorage.saveCity(resp.data.homeCity)
+      $window.localStorage.setItem('city', resp.data.homeCity);
+      QuestStorage.saveCity(resp.data.homeCity);
       $location.path('/profile');
     });
   };
@@ -26,7 +26,10 @@ angular.module('cityQuest.authenticationService', [])
     .then(function (resp) {
       console.log('resp.data.token: ', resp.data.token);
       $window.localStorage.setItem('sessiontoken', resp.data.token);
-      $location.path('/')
+      $window.localStorage.setItem('city', resp.data.homeCity);
+      console.log('resp.data.homeCity',resp.data.homeCity);
+      QuestStorage.saveCity(resp.data.homeCity);
+      $location.path('/profile')
     });
   };
 
