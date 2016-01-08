@@ -47,7 +47,7 @@ angular.module('cityQuest.questStorageService', [])
   questStorage.getRating = function(questId, rating){
     $http({
         method: 'POST',
-        url: '/api/storeRating',
+        url: '/api/getRating',
         data: {'questId': questId, 'rating': rating}
       })
       .then(function(res){

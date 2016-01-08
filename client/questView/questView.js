@@ -99,8 +99,8 @@
     Auth.signout();
   };
 
-  $scope.rate = function() {
-    QuestStorage.getSingleQuest($scope.questId, $scope.rating);
+  $scope.getRating = function() {
+    QuestStorage.getRating($scope.questId, $scope.rating);
     console.log($scope.rating);
     var max = 5;
     var ratearray = [];
