@@ -17,7 +17,7 @@
         <li><a class="active fade-in-three-quarter-sec" href="/#/">Search City</a></li>
         <li><a class="active fade-in-three-quarter-sec selected" href="/#/questList">Quest List</a></li>
         <li><a class="active fade-in-three-quarter-sec" href="/#/createQuest">Create Quest</a></li>
-        <li ng-show="signedIn"><a class="active fade-in-three-quarter-sec" style="color:#B3D221;" href="/#/profile">Profile</a></li>
+        <li ng-show="signedIn"><a class="active fade-in-three-quarter-sec" style="color:#B3D221;" href="/#/profile">Thy Library</a></li>
         <li><a class="active fade-in-three-quarter-sec" href="/#/" ng-click="signout()">Sign Out</a></li>
       </ul>
     </nav><!--/.nav-collapse -->
@@ -41,12 +41,12 @@
 
 <!-- RATING field -->
 <div class="col-md-4">
-  <h4 class="quest-view-descript">Rate this quest:</h4>
+  <h4 class="quest-view-descript">Opine upon this Quest:</h4>
                 <form ng-submit="rate()">
                   <div class="input-group">
                     <star-rating ng-model="rating" readonly="false"></star-rating>
                   <span class="input-group-btn">
-                    <button href=''  class="btn btn-default input-submit fade-in-1-and-three-quarter-sec" type="submit">Rate</button>
+                    <button href=''  class="btn btn-default input-submit fade-in-1-and-three-quarter-sec" type="submit">Toss Coins</button>
                   </span>
                 </div>
               </form>
@@ -88,7 +88,7 @@
                 </div>
               </div>
               <div class="col-md-11 tab">
-                <div class="row btn" ng-show="signedIn" ng-click="queueQuest()">Queue Me Up, Baby!</div>
+                <div class="row btn" ng-show="signedIn" ng-click="queueQuest()">Take Quest!</div>
               </div>
             </div>
           </div>
