@@ -21,7 +21,7 @@ angular.module('cityQuest.createQuest', [])
    cost:     0,
    time:     0
   };
-  $scope.quest.city = InputConversion.capitalizeFirstLetter($window.localStorage.getItem('city') || Profile.homeCity);
+  $scope.quest.city = QuestStorage.getCity();
 
   $scope.currentStep = {
    description: null,
