@@ -43,7 +43,7 @@
 
             <div class="col-md-4">
             <h4 class="quest-view-descript">Opine upon this Quest:</h4>
-                <form ng-submit="getRating()">
+                <form ng-submit="getRating()" ng-show="notVoted">
 
                   <div class="input-group">
                     <star-rating ng-model="rating" readonly="false"></star-rating>
@@ -52,6 +52,7 @@
                   </span>
                 </div>
               </form>
+              <p ng-show="!notVoted" class="quest-view-descript">Tossed!</p>
             </div>
 <!-- END RATING field -->
           </div>

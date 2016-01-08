@@ -3,6 +3,7 @@
 .controller('questViewCtrl', function($location, $scope, $routeParams, $window, QuestStorage, uiGmapGoogleMapApi, Auth, InputConversion){
   $scope.questId = $routeParams.questId;
   $scope.rating = 0;
+  $scope.notVoted = true;
   $scope.token = $window.localStorage.getItem('sessiontoken');
 
   //if the city has been set by searching for a city
@@ -100,6 +101,7 @@
   };
 
   $scope.getRating = function() {
+    $scope.notVoted = false;
     QuestStorage.getRating($scope.questId, $scope.rating);
     console.log($scope.rating);
     var max = 5;
