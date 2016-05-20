@@ -20,6 +20,11 @@ a:hover {
   margin-top: 60px;
 }
 
+.account {
+  font-size: 18px;
+  text-shadow: 1px 1px #000;
+}
+
 .selected {
   color: #B3D221 !important;
 }
@@ -73,7 +78,7 @@ a:hover {
 }
 
 .questList {
-  margin-bottom: 30px;
+  margin-top: 10px;
 }
 
 .questItem {
@@ -336,7 +341,7 @@ tags-input .tags .tag-item {
 }
 
 .angular-google-map-container {
- height: 400px; 
+ height: 400px;
 }
 
 .quest-view-image {
@@ -444,3 +449,37 @@ tags-input .tags .tag-item {
   font-size: 1.3em;
   margin-top: 14px;
 }
+
+.star-rating {
+  margin: 0;
+  padding: 0;
+  display: inline-block;
+  }
+
+.star {
+  padding: 1px;
+  color: #ddd;
+  font-size: 20px;
+  text-shadow: .05em .05em #aaa;
+  list-style-type: none;
+  display: inline-block;
+  cursor: pointer;
+}
+.star.filled {
+  color: #fd0;
+}
+
+.readonly .star.filled {
+  color: #666;
+}
+
+.stared {
+  padding: 1px;
+  color: #ddd;
+  font-size: 20px;
+  text-shadow: .05em .05em #aaa;
+  list-style-type: none;
+  display: inline-block;
+  color: #fd0;
+}
+

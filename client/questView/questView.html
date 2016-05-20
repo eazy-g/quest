@@ -17,7 +17,8 @@
         <li><a class="active fade-in-three-quarter-sec" href="/#/">Search City</a></li>
         <li><a class="active fade-in-three-quarter-sec selected" href="/#/questList">Quest List</a></li>
         <li><a class="active fade-in-three-quarter-sec" href="/#/createQuest">Create Quest</a></li>
-        <li><a class="active fade-in-three-quarter-sec" href="/#/signin" ng-click="signout()">Sign Out</a></li>
+        <li ng-show="signedIn"><a class="active fade-in-three-quarter-sec" style="color:#B3D221;" href="/#/profile">Thy Library</a></li>
+        <li><a class="active fade-in-three-quarter-sec" href="/#/" ng-click="signout()">Sign Out</a></li>
       </ul>
     </nav><!--/.nav-collapse -->
   </div>
@@ -35,9 +36,31 @@
           <div class="col-md-9">
             <h1 class="quest-view-title">{{ quest.name }}</h1>
             <h4 class="quest-view-descript">{{ quest.description }}</h4>
+
+
+
+<!-- RATING field -->
+
+            <div class="col-md-4">
+            <h4 class="quest-view-descript">Opine upon this Quest:</h4>
+                <form ng-submit="getRating()" ng-show="notVoted">
+
+                  <div class="input-group">
+                    <star-rating ng-model="rating" readonly="false"></star-rating>
+                  <span class="input-group-btn">
+                    <button href=''  class="btn btn-default input-submit fade-in-1-and-three-quarter-sec" type="submit">Toss Coins</button>
+                  </span>
+                </div>
+              </form>
+              <p ng-show="!notVoted" class="quest-view-descript">Tossed!</p>
+            </div>
+<!-- END RATING field -->
           </div>
+
           <div class="col-md-3" style="margin-top:15px;">
+
             <div class="row">
+
               <div class="col-md-5 tab">
                 <div class="row">
                   <div class="col-md-3 tab-image-container">
@@ -67,8 +90,23 @@
                   </div>
                 </div>
               </div>
+              <div class="col-md-11 tab">
+                <div ng-show="signedIn">
+                  <p class="text-left">Quest Rating:</p>
+                  <ul class="text-left">
+                    <li ng-repeat="star in range(averageRating) track by $index" class="stared">
+                      <i class="fa fa-stop-circle-o"></i>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div class="col-md-11 tab">
+                <div class="row btn" ng-show="signedIn" ng-click="queueQuest()">Take Quest!</div>
+              </div>
             </div>
           </div>
+
+
           <div class="col-md-6">
             <h2 class="">Steps</h2>
             <div class="row quest-view-steps" ng-repeat='step in quest.steps'>
@@ -79,22 +117,25 @@
 
             <span class="tags">Tags: </span>
             <span ng-repeat='tag in quest.tags'><span class="quest-view-tags">{{tag.text}}</span></span>
+            <br>
 
             <div class="clean"></div>
 
           </div>
           <div class="col-md-6 maps">
-           <ui-gmap-google-map center="map.center" zoom="map.zoom" events="map.events">
-                <ui-gmap-marker 
-                    ng-repeat="marker in markers" 
-                    coords="marker.coords" 
+
+           <ui-gmap-google-map center="map.center" zoom="map.zoom" events="map.events" options="map.options">
+
+                <ui-gmap-marker
+                    ng-repeat="marker in markers"
+                    coords="marker.coords"
                     idKey="marker.id"
                     options="marker.options"
                     >
                 </ui-gmap-marker>
           </ui-gmap-google-map>
           </div>
-          
+
           <div class="clean"></div>
 
           </div>

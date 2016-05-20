@@ -15,8 +15,15 @@ var User = models.User;
 var signup = userModels.signup;
 var signin = userModels.signin;
 var authUser = userModels.checkAuth;
+var getProfile = userModels.getProfile;
+var storeQuestId = userModels.storeQuestId;
+var completeQuest = userModels.completeQuest;
+var getPhoneNumberFromQuest = userModels.getPhoneNumberFromQuest;
+var queueQuest = userModels.queueQuest;
+var storeRating = userModels.storeRating;
 
-
+//twilio client
+var client = require('twilio')('ACaf2d26a87753a45902190e74454abfe4', '9a3f9f79e36f34b827b83b228ab29f00');
 
 app.use('api/quests*', jwt);
 
@@ -52,15 +59,30 @@ app.post('/api/users/signup', function(req, res){
 
 app.post('/api/users/signin', function(req, res){
 	signin(req, res, res.send);
-	
 });
 
-
-app.get('/api/quests*', function(req, res){
-	console.log(req.query);
-	Quest.find(req.query).then(function(quests){
+app.get('/api/twoquests', function(req, res){
+	Quest.find().limit(2).then(function(quests){
 		res.send(quests);
 	});
+});
+
+app.get('/api/quests*', function(req, res){
+
+	if(req.query.hasOwnProperty('_id') && req.query._id.indexOf(',') > -1){
+		var idArray = req.query._id.split(',')
+		Quest.find({
+			'_id' : { $in : idArray}
+		})
+		.then(function(quests){
+			res.send(quests);
+		});
+	}
+	else{
+		Quest.find(req.query).then(function(quests){
+			res.send(quests);
+		});
+	}
 });
 
 app.post('/api/geocode*', function(req, res){
@@ -68,16 +90,33 @@ app.post('/api/geocode*', function(req, res){
     if(err) throw err;
     res.send(data.results[0].geometry.location);
   });
+});
+
+app.post('/api/getProfile', function (req, res){
+	getProfile(req, res, res.send);
+});
+
+app.post('/api/storeQuestId', function (req, res) {
+  storeQuestId(req, res, res.send);
+});
+
+app.post('/api/completeQuest', function (req,res){
+	completeQuest(req, res, res.send);
+});
+
+app.post('/api/queueQuest', function (req,res){
+	queueQuest(req, res, res.send);
 })
-
-
-
 
 // Wildcard Files
 app.get('/*', function(req, res){
-      res.sendFile(path.join(__dirname + '/../' + req.url));
+  res.sendFile(path.join(__dirname + '/../' + req.url));
 });
 
 app.listen(app.get('port'), function(){
 	console.log('Node app is running on port', app.get('port'));
+});
+
+app.post('/api/getRating', function (req, res) {
+  storeRating(req, res, res.send);
 });

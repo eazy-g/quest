@@ -7,9 +7,8 @@ var Schema = mongoose.Schema;
 var questSchema = new Schema({
 	name: String,
 	description: String,
-	tags: [], 
+	tags: [],
 	time: Number,
-	id: Number,
 	city: String,
 	address: String,
 	cost: Number,
@@ -25,16 +24,26 @@ var questSchema = new Schema({
 });
 
 var userSchema = new Schema({
-	username: {
-		type: String,
-		required: true,
-		unique: true
-	},
-
-	password: {
-		type: String,
-		required: true
-	}
+  username: {
+    type: String,
+    required: true,
+    unique: true
+  },
+  password: {
+    type: String,
+    required: true
+  },
+  first_name: String,
+  last_name: String,
+  age: Number,
+  home_city: String,
+  tel_number: String,
+  created_quests_ids: [String],
+  quests_to_do_ids: [String],
+  completed_quests: [{
+    quest_id: String,
+    quest_steps_number: Number 
+  }]
 
 });
 

@@ -1,6 +1,8 @@
 var User = require('./models.js').User;
+var Quest = require('./models.js').Quest;
 var Q    = require('q');
 var jwt  = require('jwt-simple');
+var client = require('twilio')('ACaf2d26a87753a45902190e74454abfe4', '9a3f9f79e36f34b827b83b228ab29f00');
 
 module.exports = {
   signin: function (req, res, next) {
@@ -16,8 +18,9 @@ module.exports = {
           return user.comparePasswords(password)
             .then(function(foundUser) {
               if (foundUser) {
+                var homeCity = user.home_city;
                 var token = jwt.encode(user, 'secret');
-                res.json({token: token});
+                res.json({token: token, homeCity: homeCity});
               } else {
                 res.status(401).send( { message: 'Incorrect Username/Password'  });
               }
@@ -32,6 +35,10 @@ module.exports = {
   signup: function (req, res, next) {
     var username  = req.body.username,
         password  = req.body.password,
+        firstName = req.body.firstName,
+        lastName = req.body.lastName,
+        homeCity = req.body.homeCity,
+        telNumber = req.body.telNumber,
         create,
         newUser;
 
@@ -47,7 +54,11 @@ module.exports = {
           create = Q.nbind(User.create, User);
           newUser = {
             username: username,
-            password: password
+            password: password,
+            first_name: firstName,
+            last_name: lastName,
+            home_city: homeCity,
+            tel_number: telNumber
           };
           return create(newUser);
         }
@@ -56,18 +67,102 @@ module.exports = {
         // create token to send back for auth
         var token = jwt.encode(user, 'secret');
         console.log('token from userModel: ', token);
-        res.json({token: token});
+        res.json({token: token, homeCity: homeCity});
       })
       .fail(function (error) {
         next(error);
       });
   },
 
+  getProfile: function(req, res, next){
+    var token = req.body.token;
+    var decoded = jwt.decode(token, 'secret');
+    var username = decoded.username;
+
+    var findUser = Q.nbind(User.findOne, User);
+    findUser({username: username})
+    .then(function (user) {
+      res.json({profile: user});
+    })
+    .fail(function (error) {
+      next(error);
+    });
+  },
+
+  storeQuestId: function(req, res, next){
+
+    var questId = req.body.questId;
+    var token = req.body.token;
+    var decoded = jwt.decode(token, 'secret');
+    var userId = decoded._id;
+
+    User.findOneAndUpdate({'_id': userId},
+     { $push: { "created_quests_ids": questId }})
+      .then (function(err){
+        if (err) {
+          console.log(err)
+        } else {
+          res(201, "users quests updated")
+        }
+      })
+    },
+
+  completeQuest: function(req, res, next){
+    var token = req.body.token;
+    var questId = req.body.questId;
+    var questName = req.body.questName;
+    var decoded = jwt.decode(token, 'secret');
+    var userId = decoded._id;
+
+    User.findOneAndUpdate(
+      { _id: userId },
+      {
+        $push: { "completed_quests" : {"quest_id":questId} }
+        ,$pull: {"quests_to_do_ids" : questId}
+      }
+    )
+    .then(function(data){
+      User.find({"created_quests_ids": questId})
+
+      .then(function(user){
+        var userThatDidQuest = data.username;
+        client.sendMessage({
+            to:'+1' + user[0].tel_number, // Any number Twilio can deliver to
+            from: '+18652975047', // A number you bought from Twilio and can use for outbound communication
+            body: userThatDidQuest + ' completed your quest:' + questName + "!"  // body of the SMS message
+        }, function(err, responseData) { if(err){console.log(err);}}
+        );
+      });
+      res.status(201).send();
+    })
+  },
+
+  queueQuest: function (req, res, next) {
+    var token = req.body.token;
+    var questId = req.body.questId;
+    var decoded = jwt.decode(token, 'secret');
+    var userId = decoded._id;
+    User.findOneAndUpdate(
+      { _id: userId },
+      {
+        $push: { "quests_to_do_ids" : questId }
+      }
+    )
+    .then(function(data){
+      res.status(201).send();
+    })
+  },
+
+  // getPhoneNumberFromQuest: function(req, res, next){
+  //   var questId = req.body.questId;
+  //   User.find({"created_quests_ids": questId})
+  //   .then(function(user){
+  //     console.log('user', user);
+  //   })
+  // },
+
   checkAuth: function (req, res, next) {
-    // checking to see if the user is authenticated
-    // grab the token in the header if any
-    // then decode the token, which we end up being the user object
-    // check to see if that user exists in the database
+
     var token = req.headers['x-access-token'];
     if (!token) {
       next(new Error('No token'));
@@ -86,5 +181,21 @@ module.exports = {
           next(error);
         });
     }
-  }
-};
+  },
+
+
+storeRating: function (req, res, next) {
+
+    var questId = req.body.questId;
+    var rating = req.body.rating;
+    Quest.findOneAndUpdate({ _id: questId},
+     { $push: { "rating": rating }})
+      .then (function(err){
+        if (err) {
+          console.log(err)
+        } else {
+          res(201, "users rating updated")
+        }
+      })
+     }
+  };
